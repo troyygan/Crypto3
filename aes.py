@@ -303,7 +303,7 @@ class AES(object):
                                    self.createRoundKey(expandedKey, 16*i))
             i += 1
         state = self.subBytes(state, False)
-        print "###Last Round###"
+        print "###Last Round of Encryption###"
         print "subByte: ", state
         state = self.shiftRows(state, False)
         print "shiftRows: ", state
@@ -437,11 +437,13 @@ class AESModeOfOperation(object):
         i = start
         j = 0
         while len(ar) < end - start:
-            ar.append(0)
+            ar_append = ar.append(0)
+            ar_apend
         while i < end:
             ar[j] = ord(string[i])
             j += 1
             i += 1
+            print "ar :", ar
         return ar
 
     # Mode of Operation Encryption
@@ -471,7 +473,7 @@ class AESModeOfOperation(object):
                 if  end > len(stringIn):
                     end = len(stringIn)
                 plaintext = self.convertString(stringIn, start, end, mode)
-                # print 'PT@%s:%s' % (j, plaintext)
+                print 'PT@%s:%s' % (j, plaintext)
                 if mode == self.modeOfOperation["CFB"]:
                     if firstRound:
                         output = self.aes.encrypt(IV, key, size)
@@ -514,7 +516,7 @@ class AESModeOfOperation(object):
                             iput[i] =  plaintext[i] ^ IV[i]
                         else:
                             iput[i] =  plaintext[i] ^ ciphertext[i]
-                    # print 'IP@%s:%s' % (j, iput)
+                    print 'IP@%s:%s' % (j, iput)
                     firstRound = False
                     ciphertext = self.aes.encrypt(iput, key, size)
                     # always 16 bytes because of the padding for CBC
@@ -631,7 +633,7 @@ def encryptData(key, data, mode=AESModeOfOperation.modeOfOperation["CBC"]):
     """
     key = map(ord, key)
     if mode == AESModeOfOperation.modeOfOperation["CBC"]:
-        data = append_PKCS7_padding(data)
+       data = append_PKCS7_padding(data)
     keysize = len(key)
     assert keysize in AES.keySize.values(), 'invalid key size: %s' % keysize
     # create a new iv using random data
@@ -684,11 +686,13 @@ def testStr(cleartext, keysize=16, modeName = "CBC"):
     print 'Cipher:', [ord(x) for x in cipher]
     decr = decryptData(key, cipher, mode)
     print 'Decrypted:', decr
-    
-    
+   
+
 if __name__ == "__main__":
     moo = AESModeOfOperation()
-    cleartext = "This is a test with several blocks!"
+    with open ("testfile.txt", "rb") as file:
+        cleartext = file.read()
+#    cleartext = "Hello"
     cypherkey = [143,194,34,208,145,203,230,143,177,246,97,206,145,92,255,84]
     iv = [103,35,148,239,76,213,47,118,255,222,123,176,106,134,98,92]
     mode, orig_len, ciph = moo.encrypt(cleartext, moo.modeOfOperation["CBC"],
