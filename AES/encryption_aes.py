@@ -12,7 +12,7 @@ def aes():
   print "AES Encrytion Started ..."
   before_time = datetime.now()
   #print "Time before AES Encryption Starts :", before_time
-  os.system("python aes.py -d testfile_encrypted_AES.txt -o dec_result_aes.txt")
+  os.system("python aes.py -e testfile.txt -o testfile_encrytped_AES.txt")
   after_time = datetime.now()
   #print "Time after AES Encryption completes :", after_time
   total_time = after_time - before_time
