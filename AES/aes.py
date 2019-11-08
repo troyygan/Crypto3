@@ -293,7 +293,7 @@ class AES(object):
     # operations of the forward aes, creating a round key for each round
     def aes_main(self, state, expandedKey, nbrRounds):
         os.system("clear")
-        print "########################################################### ----- new data"
+        print "####--------NEW DATA of 16 BYTES-------------####\n"
         state = self.addRoundKey(state, self.createRoundKey(expandedKey, 0))
         print "Initial Round - AddRoundKey: ", state
         i = 1
@@ -443,7 +443,7 @@ class AESModeOfOperation(object):
             ar[j] = ord(string[i])
             j += 1
             i += 1
-            print "ar :", ar
+            #print "ar :", ar
         return ar
 
     # Mode of Operation Encryption
@@ -473,7 +473,7 @@ class AESModeOfOperation(object):
                 if  end > len(stringIn):
                     end = len(stringIn)
                 plaintext = self.convertString(stringIn, start, end, mode)
-                print 'PT@%s:%s' % (j, plaintext)
+                #print 'PT@%s:%s' % (j, plaintext)
                 if mode == self.modeOfOperation["CFB"]:
                     if firstRound:
                         output = self.aes.encrypt(IV, key, size)
@@ -516,7 +516,7 @@ class AESModeOfOperation(object):
                             iput[i] =  plaintext[i] ^ IV[i]
                         else:
                             iput[i] =  plaintext[i] ^ ciphertext[i]
-                    print 'IP@%s:%s' % (j, iput)
+                    #print 'IP@%s:%s' % (j, iput)
                     firstRound = False
                     ciphertext = self.aes.encrypt(iput, key, size)
                     # always 16 bytes because of the padding for CBC
