@@ -686,13 +686,14 @@ def testStr(cleartext, keysize=16, modeName = "CBC"):
     print 'Cipher:', [ord(x) for x in cipher]
     decr = decryptData(key, cipher, mode)
     print 'Decrypted: \n', decr
-   
 
+
+#This is the initial implementation. I had take out it to monitor the memory
+"""
 if __name__ == "__main__":
     moo = AESModeOfOperation()
     with open ("testfile.txt", "rb") as file:
         cleartext = file.read()
-#    cleartext = "Hello"
     cypherkey = [143,194,34,208,145,203,230,143,177,246,97,206,145,92,255,84]
     iv = [103,35,148,239,76,213,47,118,255,222,123,176,106,134,98,92]
     mode, orig_len, ciph = moo.encrypt(cleartext, moo.modeOfOperation["CBC"],
@@ -702,3 +703,5 @@ if __name__ == "__main__":
             moo.aes.keySize["SIZE_128"], iv)
     print decr
     testStr(cleartext, 16, "CBC")
+
+"""
