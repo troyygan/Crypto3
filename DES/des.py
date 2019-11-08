@@ -20,7 +20,7 @@ def des_enc():
     assert k.decrypt(d, padmode=PAD_PKCS5) == data
     after_time = datetime.now()
     total_time = after_time - before_time
-    print "Total Time conceeded by AES ", total_time
+    print "Total Time conceeded by DES", total_time
 
 
 des_enc()
