@@ -685,7 +685,7 @@ def testStr(cleartext, keysize=16, modeName = "CBC"):
     cipher = encryptData(key, cleartext, mode)
     print 'Cipher:', [ord(x) for x in cipher]
     decr = decryptData(key, cipher, mode)
-    print 'Decrypted:', decr
+    print 'Decrypted: \n', decr
    
 
 if __name__ == "__main__":
