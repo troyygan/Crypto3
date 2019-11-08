@@ -15,6 +15,7 @@ import os
 import sys
 import math
 
+
 class AES(object):
     '''AES funtions for a single block
     '''
@@ -177,6 +178,7 @@ class AES(object):
 
     def addRoundKey(self, state, roundKey):
         """Adds (XORs) the round key to the state."""
+        print "State :", state
         for i in range(16):
             state[i] ^= roundKey[i]
         return state
@@ -303,7 +305,7 @@ class AES(object):
                                    self.createRoundKey(expandedKey, 16*i))
             i += 1
         state = self.subBytes(state, False)
-        print "###Last Round###"
+        print "###Last Round of Encryption###"
         print "subByte: ", state
         state = self.shiftRows(state, False)
         print "shiftRows: ", state
@@ -514,9 +516,10 @@ class AESModeOfOperation(object):
                             iput[i] =  plaintext[i] ^ IV[i]
                         else:
                             iput[i] =  plaintext[i] ^ ciphertext[i]
-                    # print 'IP@%s:%s' % (j, iput)
+                    #print 'IP@%s:%s' % (j, iput)
                     firstRound = False
                     ciphertext = self.aes.encrypt(iput, key, size)
+                    print ciphertext
                     # always 16 bytes because of the padding for CBC
                     for k in range(16):
                         cipherOut.append(ciphertext[k])
@@ -608,7 +611,8 @@ class AESModeOfOperation(object):
 def append_PKCS7_padding(s):
     """return s padded to a multiple of 16-bytes by PKCS7 padding"""
     numpads = 16 - (len(s)%16)
-    print "numpads: ", numpads
+    new_data = s + numpads*chr(numpads)
+#    print "New Data: ", new_data
     return s + numpads*chr(numpads)
 
 def strip_PKCS7_padding(s):
@@ -685,10 +689,12 @@ def testStr(cleartext, keysize=16, modeName = "CBC"):
     decr = decryptData(key, cipher, mode)
     print 'Decrypted:', decr
     
-    
+
 if __name__ == "__main__":
     moo = AESModeOfOperation()
-    cleartext = "This is a test with several blocks!"
+    with open ('testfile.txt', 'rb') as data:
+        cleartext = data.read()
+#    cleartext = "This is a test with several blocks!"
     cypherkey = [143,194,34,208,145,203,230,143,177,246,97,206,145,92,255,84]
     iv = [103,35,148,239,76,213,47,118,255,222,123,176,106,134,98,92]
     mode, orig_len, ciph = moo.encrypt(cleartext, moo.modeOfOperation["CBC"],
