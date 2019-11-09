@@ -9,7 +9,6 @@ from datetime import datetime, date, time
 def enc():
     print "AES Encrypt started....."
     before_time_enc = datetime.now()
-    print "Start Time of Encryption: ", before_time_enc
     moo = AESModeOfOperation()
     with open ("testfile.txt", "rb") as file:
         cleartext = file.read()
@@ -22,16 +21,36 @@ def enc():
     print "End Time of Encryption: ", after_time_enc
     total_time_enc = after_time_enc - before_time_enc
     print "Total Time of Encryption: ", total_time_enc
+   
     print "Decryption Started..."
     before_time_dec = datetime.now()
-    print "Start Time of Decryption: ", before_time_dec
     decr = moo.decrypt(ciph, orig_len, mode, cypherkey,
             moo.aes.keySize["SIZE_128"], iv)
     after_time_dec = datetime.now()
-    print "End Time of Decryption: ", after_time_dec
     total_time_dec = after_time_dec - before_time_dec
-    print "Total Time of Decryption: ", total_time_dec
-    print decr
+   
+    print "\n" 
+    print "----DECRYPTED CIPHERTEXT----\n", decr
+
+#Timestamps for encryption and decryption
+    print "----ENCRYPTION TIME----"
+    print "Start Time: ", before_time_enc
+    print "End Time: ", after_time_enc
+    print "Total Time of Execution: ", total_time_enc
+    print "\n"
+
+    print "----DECRYPTION TIME----"
+    print "Start Time: ", before_time_dec
+    print "End Time: ", after_time_dec 
+    print "Total Time of Execution: ", total_time_dec
+    print "\n"    
+
+    print "----INPUTS----"
+    print "Cipherkey: ", cypherkey
+    print "IV: ", iv
+    
+
+#
 
 
 enc()

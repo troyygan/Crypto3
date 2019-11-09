@@ -293,7 +293,7 @@ class AES(object):
     # operations of the forward aes, creating a round key for each round
     def aes_main(self, state, expandedKey, nbrRounds):
         os.system("clear")
-        print "####--------NEW DATA of 16 BYTES-------------####\n"
+        print "\n####--------NEW DATA of 16 BYTES-------------####\n"
         state = self.addRoundKey(state, self.createRoundKey(expandedKey, 0))
         print "Initial Round - AddRoundKey: ", state
         i = 1
