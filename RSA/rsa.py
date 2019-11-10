@@ -6,10 +6,10 @@ Part A - RSA Encryption
 
 import random
 
-
+class rsa(object):
 '''
 Euclid's algorithm for determining the greatest common divisor
-Use iteration to make it faster for larger integers
+Use itseration to make it faster for larger integers
 '''
 def gcd(a, b):
     while b != 0:
