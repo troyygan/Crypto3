@@ -18,8 +18,8 @@ def func_rsa():
 ##If you want to make the script interactive you can uncomment the lines below
 #  p = int(raw_input("Enter a prime number (17, 19, 23, etc): "))
 #  q = int(raw_input("Enter another prime number (Not one you entered above): "))
-  p = 89
-  q = 97
+  p = 401
+  q = 409
   print "Using %s and %s for generating keys" % (p, q)
   print "Generating your public/private keypairs now . . ."
   public, private = r.generate_keypair(p, q)
