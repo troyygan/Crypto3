@@ -24,6 +24,7 @@ def func_rsa():
   print "Generating your public/private keypairs now . . ."
   public, private = r.generate_keypair(p, q)
   print "Your public key is ", public ," and your private key is ", private
+  print "encrypting message using private key", private
 #  message = raw_input("Enter a message to encrypt with your private key: ")
   with open ("testfile.txt", "rb") as file:
       message = file.read()

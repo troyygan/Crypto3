@@ -450,6 +450,7 @@ class des(_baseDes):
 			return ''.join([ chr(c) for c in result ])
 		else:
 			return bytes(result)
+                
 
 	def __permutate(self, table, block):
 		"""Permutate this block with the specified table"""
@@ -458,14 +459,20 @@ class des(_baseDes):
 	# Transform the secret key, so that it is ready for data processing
 	# Create the 16 subkeys, K[1] - K[16]
 	def __create_sub_keys(self):
+                print "64-bit subkey", self.__String_to_BitList(self.getKey())
 		"""Create the 16 subkeys K[1] to K[16] from the given key"""
 		key = self.__permutate(des.__pc1, self.__String_to_BitList(self.getKey()))
-		i = 0
+		print "58-bit key after PC-1", key
+                i = 0
 		# Split into Left and Right sections
 		self.L = key[:28]
 		self.R = key[28:]
+                print "Sub key generation"
 		while i < 16:
 			j = 0
+                        print "Round",i
+                        print "Left 28-bit",self.L
+                        print "Right 28-bit",self.R
 			# Perform circular left shifts
 			while j < des.__left_rotations[i]:
 				self.L.append(self.L[0])
@@ -475,16 +482,19 @@ class des(_baseDes):
 				del self.R[0]
 
 				j += 1
-
+                        print "After Left Circular shift"
+                        print "Left 28-bit",self.L
+                        print "Right 28-bit",self.R
 			# Create one of the 16 subkeys through pc2 permutation
 			self.Kn[i] = self.__permutate(des.__pc2, self.L + self.R)
-
+                        print "After permuted choice 2",self.Kn[i]
 			i += 1
 
 	# Main part of the encryption algorithm, the number cruncher :)
 	def __des_crypt(self, block, crypt_type):
 		"""Crypt the block of data through DES bit-manipulation"""
 		block = self.__permutate(des.__ip, block)
+                print "After Initial Permutation",block
 		self.L = block[:32]
 		self.R = block[32:]
 
@@ -499,14 +509,17 @@ class des(_baseDes):
 
 		i = 0
 		while i < 16:
+                        print "Round-",i+1
 			# Make a copy of R[i-1], this will later become L[i]
 			tempR = self.R[:]
-
+                        print "Left 32-bit",self.L
+                        print "Right 32-bit",self.R
 			# Permutate R[i - 1] to start creating R[i]
 			self.R = self.__permutate(des.__expansion_table, self.R)
-
+                        print "After Expansion ", self.R
 			# Exclusive or R[i - 1] with K[i], create B[1] to B[8] whilst here
 			self.R = list(map(lambda x, y: x ^ y, self.R, self.Kn[iteration]))
+                        print "After XOR with key", self.R
 			B = [self.R[:6], self.R[6:12], self.R[12:18], self.R[18:24], self.R[24:30], self.R[30:36], self.R[36:42], self.R[42:]]
 			# Optimization: Replaced below commented code with above
 			#j = 0
@@ -537,13 +550,14 @@ class des(_baseDes):
 
 				pos += 4
 				j += 1
-
+                        print "After S-BOX",Bn
 			# Permutate the concatination of B[1] to B[8] (Bn)
 			self.R = self.__permutate(des.__p, Bn)
-
+                        print "After permutation",self.R
 			# Xor with L[i - 1]
 			self.R = list(map(lambda x, y: x ^ y, self.R, self.L))
-			# Optimization: This now replaces the below commented code
+			print "After XOR of Left 32-bits with Right 32-bits",self.R
+                        # Optimization: This now replaces the below commented code
 			#j = 0
 			#while j < len(self.R):
 			#	self.R[j] = self.R[j] ^ self.L[j]
@@ -551,13 +565,16 @@ class des(_baseDes):
 
 			# L[i] becomes R[i - 1]
 			self.L = tempR
-
+                        print "After Swaping of bits"
+                        print "Left 32-bit",self.L
+                        print "Right 32-bit",self.R
 			i += 1
 			iteration += iteration_adjustment
 		
 		# Final permutation of R[16]L[16]
 		self.final = self.__permutate(des.__fp, self.R + self.L)
-		return self.final
+		print "After Final Permutation", self.final
+                return self.final
 
 
 	# Data to be encrypted/decrypted
@@ -630,7 +647,7 @@ class des(_baseDes):
 			result.append(self.__BitList_to_String(processed_block))
 			#dict[data[i:i+8]] = d
 			i += 8
-
+            
 		# print "Lines: %d, cached: %d" % (lines, cached)
 
 		# Return the full crypted string
@@ -657,6 +674,7 @@ class des(_baseDes):
 			pad = self._guardAgainstUnicode(pad)
 		data = self._padData(data, pad, padmode)
 		return self.crypt(data, des.ENCRYPT)
+                 
 
 	def decrypt(self, data, pad=None, padmode=None):
 		"""decrypt(data, [pad], [padmode]) -> bytes

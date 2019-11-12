@@ -21,6 +21,8 @@ def single_des():
     print data
 
     d = k.encrypt(data)
+    #with open ("results.txt", "w+") as r:
+       # r.write(format(ord(d),'b'))
     after_time_enc = datetime.now()
     total_time_enc = after_time_enc - before_time_enc
     print "----CIPHERTEXT----"
