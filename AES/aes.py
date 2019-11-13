@@ -438,12 +438,13 @@ class AESModeOfOperation(object):
         j = 0
         while len(ar) < end - start:
             ar_append = ar.append(0)
-            ar_apend
+#            print "AR APPEND: ", ar_append
         while i < end:
             ar[j] = ord(string[i])
+#            print "TESTING: ", ar[j]
             j += 1
             i += 1
-            #print "ar :", ar
+            print "ar :", ar
         return ar
 
     # Mode of Operation Encryption
@@ -473,7 +474,7 @@ class AESModeOfOperation(object):
                 if  end > len(stringIn):
                     end = len(stringIn)
                 plaintext = self.convertString(stringIn, start, end, mode)
-                #print 'PT@%s:%s' % (j, plaintext)
+                print 'PT@%s:%s' % (j, plaintext)
                 if mode == self.modeOfOperation["CFB"]:
                     if firstRound:
                         output = self.aes.encrypt(IV, key, size)
