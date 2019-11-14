@@ -235,6 +235,7 @@ class _baseDes(object):
 			if isinstance(data, str):
 				# Only accept ascii unicode values.
 				try:
+                                        print "Actual Data", data
 					return data.encode('ascii')
 				except UnicodeEncodeError:
 					pass
