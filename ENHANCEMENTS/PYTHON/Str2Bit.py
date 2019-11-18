@@ -6,12 +6,16 @@ import sys
 from binstr import *
 
 
+<<<<<<< HEAD
 text = "Hello"
 
+=======
+>>>>>>> 01b35cdf0da9929352e89a54e06084718d8097be
 
 
 #This will convert the string to binary in array format
 def strbin(s):
+<<<<<<< HEAD
     binary = [ bin(ord(ch))[2:].zfill(8) for ch in s ] 
     return binary
 #    for i in range(len(s)):
@@ -23,6 +27,18 @@ def bin_to_gray(b):
 
 
 print "Plaintext: ", text
+=======
+    binary = [ bin(ord(ch))[2:].zfill(8) for ch in s ]
+    print "Plaintext: ", s
+    print "Binary Value: ", binary
+#    for i in range(len(s)):
+#        print "Element: %s %s " % (i, binary[i])
+
+#def bin_to_gray()
+
+strbin("Hello")
+    
+>>>>>>> 01b35cdf0da9929352e89a54e06084718d8097be
 
 #This is to convert from bin to array
 

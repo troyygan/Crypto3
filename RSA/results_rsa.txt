@@ -1,0 +1,88 @@
+RSA Encryption-Decryption Started.....
+RSA Encrypter/ Decrypter
+Using 401 and 409 for generating keys
+Generating your public/private keypairs now . . .
+value of n is: 164009
+Euler's totient value: 163200
+value of e is: 134587
+value of d is 244723
+Your public key is  (134587, 164009)  and your private key is  (244723, 164009)
+encrypting message using private key (244723, 164009)
+Encrypted message is: 
+15155156456137824102312752741254235645613782475274531072270512542314996254408102312227051421257527457705137824159691564801622541499621254231440087527413802104495137824102312159691144008164122919875274149962102312150799149962102312159691149962509721421251378247527415969154408299941378247668950972162254137824227059156149962102312104495752747199422705159691564561499621023121378247527413782410231215969154408564801023121254231378241622542919875274227057527471994144008291981254231378241622541499625440856480291987527415969154408299941378247527414996212542375274159691227051023121023125440812542375274509721622541378242270591563878875274125423564561378247527422705104495137824102312159691144008752741596912270514212514212529198752741499621254232919875274564561378242270529994752741596911622541440086651912542354408104495162254227056651956456137824162254387887527457705564802919822705102312752741139251421251378241254231596915645613782416225438788752742270575274509721622541499621421251421251499622270510231212542375274227051023122999475274509721378242270556480125423149962759515648014212575274719942270512542356456137824719942270512542314996215969114996222705102312754477527415155156456227051254237527429198564561378247527456480102312159691544081507991378241622542919875274291981378241023122999429198752742919856456544081596919156752742461822705150799137824291987527412542356456162254544085648010449556456752741254235645613782475274159691544081622541622541499622999454408162254291987527454408759517527466519544082461813782416225475447752741319555645613782475274531075770513802752741499622919875274509721378241499621023121044957527456456137824142125299947527456456544082919812542322705104495137824754477544775447752741023125440812542375274509721440087527410449556480102312291987527454408162254752745097254408719945097229198387887527450972564801254237527450972144008752742270575274159691544082999413782475274291985440875274149962102312104495137824102312149962544085648029198142125144008752741596915440871994665191421251378241251787527412542356456227051254237527414996275951752741622541378241421251378242270529198137824299947527414996212542375274246185440856480142125299947527415969116225414996266519665191421251378247527470924754475770575447752741499621023121254231378241421251421251499621044951378241023121596911378247544717063
+Decryption Started...
+Decrypting message with public key  (134587, 164009)  . . .
+Decrypted Message:
+When the National Security Agency's invincible code-breaking machine encounters a mysterious code it cannot break, the agency calls its head cryptographer, Susan Fletcher, a brilliant and beautiful mathematician. What she uncovers sends shock waves through the corridors of power. The NSA is being held hostage... not by guns or bombs, but by a code so ingeniously complex that if released it would cripple U.S. intelligence.
+
+----ENCRYPTION TIME----
+Start Time:  2019-11-13 03:26:32.241252
+End Time:  2019-11-13 03:27:38.369981
+Total Time of Execution:  0:01:06.128729
+
+
+----DECRYPTION TIME----
+Start Time:  2019-11-13 03:27:38.370488
+End Time:  2019-11-13 03:29:43.510253
+Total Time of Execution:  0:02:05.139765
+
+
+Filename: rsa.py
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     7   15.320 MiB   15.320 MiB   @profile
+     8                             
+     9                             def func_rsa():
+    10   15.320 MiB    0.000 MiB     print "RSA Encryption-Decryption Started....."
+    11   15.320 MiB    0.000 MiB     before_time_enc = datetime.now()
+    12   15.320 MiB    0.000 MiB     r = RSA()
+    13   15.320 MiB    0.000 MiB     encrypt = r.encrypt
+    14   15.320 MiB    0.000 MiB     decrypt = r.decrypt
+    15   15.320 MiB    0.000 MiB     print "RSA Encrypter/ Decrypter"
+    16                             
+    17                             
+    18                             ##If you want to make the script interactive you can uncomment the lines below
+    19                             #  p = int(raw_input("Enter a prime number (17, 19, 23, etc): "))
+    20                             #  q = int(raw_input("Enter another prime number (Not one you entered above): "))
+    21   15.320 MiB    0.000 MiB     p = 401
+    22   15.320 MiB    0.000 MiB     q = 409
+    23   15.320 MiB    0.000 MiB     print "Using %s and %s for generating keys" % (p, q)
+    24   15.320 MiB    0.000 MiB     print "Generating your public/private keypairs now . . ."
+    25   15.320 MiB    0.000 MiB     public, private = r.generate_keypair(p, q)
+    26   15.320 MiB    0.000 MiB     print "Your public key is ", public ," and your private key is ", private
+    27   15.320 MiB    0.000 MiB     print "encrypting message using private key", private
+    28                             #  message = raw_input("Enter a message to encrypt with your private key: ")
+    29   15.320 MiB    0.000 MiB     with open ("testfile.txt", "rb") as file:
+    30   15.320 MiB    0.000 MiB         message = file.read()
+    31   16.004 MiB    0.684 MiB     encrypted_msg = encrypt(private, message)
+    32   16.004 MiB    0.000 MiB     print "Encrypted message is: "
+    33   16.004 MiB    0.000 MiB     print ''.join(map(lambda x: str(x), encrypted_msg))
+    34   16.004 MiB    0.000 MiB     after_time_enc = datetime.now()
+    35   16.004 MiB    0.000 MiB     total_time_enc = after_time_enc - before_time_enc
+    36                             
+    37                             
+    38                             ###DECRYPTIOn
+    39                             
+    40   16.004 MiB    0.000 MiB     print "Decryption Started..."
+    41   16.004 MiB    0.000 MiB     before_time_dec = datetime.now()
+    42   16.004 MiB    0.000 MiB     print "Decrypting message with public key ", public ," . . ."
+    43   16.004 MiB    0.000 MiB     print "Decrypted Message:"
+    44   15.762 MiB    0.000 MiB     print decrypt(public, encrypted_msg)
+    45   15.762 MiB    0.000 MiB     after_time_dec = datetime.now()
+    46   15.762 MiB    0.000 MiB     total_time_dec = after_time_dec - before_time_dec
+    47                             
+    48                             #Timestamps for encryption and decryption
+    49   15.762 MiB    0.000 MiB     print "----ENCRYPTION TIME----"
+    50   15.762 MiB    0.000 MiB     print "Start Time: ", before_time_enc
+    51   15.762 MiB    0.000 MiB     print "End Time: ", after_time_enc
+    52   15.762 MiB    0.000 MiB     print "Total Time of Execution: ", total_time_enc
+    53   15.762 MiB    0.000 MiB     print "\n"
+    54                             
+    55   15.762 MiB    0.000 MiB     print "----DECRYPTION TIME----"
+    56   15.762 MiB    0.000 MiB     print "Start Time: ", before_time_dec
+    57   15.762 MiB    0.000 MiB     print "End Time: ", after_time_dec
+    58   15.762 MiB    0.000 MiB     print "Total Time of Execution: ", total_time_dec
+    59   15.762 MiB    0.000 MiB     print "\n"
+
+
