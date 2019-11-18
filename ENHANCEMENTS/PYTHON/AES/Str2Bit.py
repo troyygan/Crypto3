@@ -6,7 +6,7 @@ import sys
 from binstr import *
 
 
-text = "Hello"
+text = "WhenTheNationSec"
 
 
 
@@ -42,6 +42,14 @@ for i in range(len(bin_array)):
     print "Element #", i
     print "Base2 Value = ", bin_array[i]
     print "Gray Code Value = ", bin_to_gray(bin_array[i])
-    print 
-    
+    print
 
+
+######Combine
+
+
+b2p = ''.join(strbin(text))
+g2p = ''.join(b2p)
+
+print "BASE2 PLAINTEXT = ", b2p
+print "GRAY CODE PLAINTEXT = ", g2p

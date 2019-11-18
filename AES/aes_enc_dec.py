@@ -10,7 +10,7 @@ def enc():
     print "AES Encrypt started....."
     before_time_enc = datetime.now()
     moo = AESModeOfOperation()
-    with open ("testfile.txt", "rb") as file:
+    with open ("128bit_plaintext.txt", "rb") as file:
         cleartext = file.read()
     cypherkey = [143,194,34,208,145,203,230,143,177,246,97,206,145,92,255,84]
     iv = [103,35,148,239,76,213,47,118,255,222,123,176,106,134,98,92]

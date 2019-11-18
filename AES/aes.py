@@ -474,7 +474,7 @@ class AESModeOfOperation(object):
                 if  end > len(stringIn):
                     end = len(stringIn)
                 plaintext = self.convertString(stringIn, start, end, mode)
-                print 'PT@%s:%s' % (j, plaintext)
+                print 'PT Before IV %s:%s' % (j, plaintext)
                 if mode == self.modeOfOperation["CFB"]:
                     if firstRound:
                         output = self.aes.encrypt(IV, key, size)
@@ -515,14 +515,17 @@ class AESModeOfOperation(object):
                     for i in range(16):
                         if firstRound:
                             iput[i] =  plaintext[i] ^ IV[i]
+                            s = chr(plaintext[i])
+                            print "Round Number %s = %s = %s = %s" % (i, plaintext[i], chr(plaintext[i]), [ bin(ord(ch))[2:].zfill(8) for ch in s ])
                         else:
                             iput[i] =  plaintext[i] ^ ciphertext[i]
-                    #print 'IP@%s:%s' % (j, iput)
+                    print 'IP %s:%s' % (j, iput)
                     firstRound = False
                     ciphertext = self.aes.encrypt(iput, key, size)
                     # always 16 bytes because of the padding for CBC
                     for k in range(16):
                         cipherOut.append(ciphertext[k])
+                        print cipherOut.append(ciphertext[k])
         return mode, len(stringIn), cipherOut
 
     # Mode of Operation Decryption
@@ -595,6 +598,8 @@ class AESModeOfOperation(object):
                     for i in range(16):
                         if firstRound:
                             plaintext[i] = IV[i] ^ output[i]
+                            s = chr(plaintext[i])
+                            print "Round Number %s = %s = %s = %s" % (i, plaintext[i], chr(plaintext[i]), [ bin(ord(ch))[2:].zfill(8) for ch in s ])
                         else:
                             plaintext[i] = iput[i] ^ output[i]
                     firstRound = False
@@ -605,6 +610,7 @@ class AESModeOfOperation(object):
                         for k in range(end-start):
                             chrOut.append(chr(plaintext[k]))
                     iput = ciphertext
+        print "".join(chrOut)
         return "".join(chrOut)
 
 
